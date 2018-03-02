@@ -19,9 +19,16 @@ import java.util.function.Consumer;
 public class InitialPB {
     
     public static void main(String[] args) throws Exception{
-        ProcessBuilder builder = new ProcessBuilder();
-        builder.command("sh", "-c", "ls");
-        builder.directory(new File(System.getProperty("user.home")));
+        //builder.command(/*"sh", "-c", */"ls"); //List files in directory
+        builder.command("find", ".", "-mmin", "-5"); //Find files in the directory changed in past 5 min
+            /*
+                Needs to read in files changed in directory in last X minutes
+                If a file is one specified by user then it will send alert
+                Essentially a fail safe if someone backdoors the system or puts
+                new file into directory with files being monitored
+            */
+        //builder.command("tail", "-f", "serverfile.txt"); //Shows end of file specified
+        builder.directory(new File("/home/bickerstaff2/MyServer"));
         Process process = builder.start();
         StreamGobbler sG = new StreamGobbler(process.getInputStream(), System.out::println);
         Executors.newSingleThreadExecutor().submit(sG);
