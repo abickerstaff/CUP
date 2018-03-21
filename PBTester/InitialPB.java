@@ -1,12 +1,8 @@
 
+
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.util.concurrent.Executors;
-import java.util.function.Consumer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,7 +13,7 @@ import java.util.function.Consumer;
  *
  * @author bickerstaff2
  */
-public class InitialPB {
+public class InitialPB extends email{
 
     public static void main(String[] args) throws Exception {
         ProcessBuilder builder = new ProcessBuilder();
@@ -33,59 +29,20 @@ public class InitialPB {
 
         builder.directory(new File("/home/bickerstaff2/MyServer"));
         Process process = builder.start();
-
         BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
         String line;
         while ((line = br.readLine()) != null) {
             if (line.equals("./serverfile.txt")) {
-                emailer();
+                String name = "serverfile.txt";
+                emailer(name, "compromised");
+                System.out.println(line);
             } else {
                 System.out.println(line);
             }
         }
-        /* StreamGobbler sG = new StreamGobbler(process.getInputStream(), System.out::println);
-        Executors.newSingleThreadExecutor().submit(sG); */
         int exitCode = process.waitFor();
         assert exitCode == 0;
         System.out.println(exitCode);
     }
-/*
-    private static class StreamGobbler implements Runnable {
 
-        private InputStream iS;
-        private Consumer<String> cons;
-
-        public StreamGobbler(InputStream iS, Consumer<String> cons) throws Exception {
-            this.iS = iS;
-            this.cons = cons;
-        }
-
-        @Override
-        public void run() {
-            new BufferedReader(new InputStreamReader(iS)).lines().forEach(cons);
-
-        }
-    }
-*/
-
-    public static void emailer() throws Exception {
-
-        Process p = new ProcessBuilder("ssmtp", "cyberunderproj@gmail.com").start();
-        PrintStream out = new PrintStream(p.getOutputStream());
-        String line = null;
-        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("msg.txt")));
-        while ((line = in.readLine()) != null) {
-            out.println(line);
-        }
-
-        out.close();
-
-        in.close();
-
-        int exitCode = p.waitFor();
-
-        assert exitCode == 0;
-        System.out.println(exitCode);
-        System.out.println("run");
-    }
 }
