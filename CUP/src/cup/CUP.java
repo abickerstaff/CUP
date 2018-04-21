@@ -41,6 +41,7 @@ public class CUP {
                 if (!emailSentAttack && newEmail1.getStatus().contains(emailInfo.EMAILATTACK)) {
                     SendEmail.emailer(newEmail1);
                     counter = 0;
+                    emailSentAttack = true;
                 } else {
                     counter++;
                 }
@@ -48,6 +49,7 @@ public class CUP {
                     findsweeper.sweeper(newEmail1, protectedFile1);
                     if (!emailSentEdited && newEmail1.getStatus().contains(emailInfo.EMAILATTACK)) {
                         SendEmail.emailer(newEmail1);
+                        emailSentEdited = true;
                     }
                     counter = 0;
                 }
