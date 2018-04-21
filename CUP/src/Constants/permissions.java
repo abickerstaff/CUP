@@ -10,5 +10,8 @@ package Constants;
  * @author bickerstaff2
  */
 public class permissions {
-    private static final String SAFETY = "000";
+    public static final String ABSOLUTESAFETY = "000"; //no perms
+    public static final String SAFETY = "555"; //read & execute
+    public static final String READONLY = "444"; //read only
+    public static final String ORIGPERMS = "664"; //Orig text file perms
 }

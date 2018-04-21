@@ -11,15 +11,21 @@ package Constants;
  */
 public class emailInfo {
     
-    private static final String CONTACTEMAIL = "cyberunderproj@gmail.com";
-    private static final String SENDTO = "To: ";
-    private static final String FROM = "From: cyberunderproj@gmail.com";
-    private static final String SUBJECT = "Subject: Your files have been accessed";
-    private static final String INITIALLINE = "Warning. Your files have been accessed.";
-    private static final String FILESEFFECTED = "The following file(s) have been accessed: ";
-    private static final String UNDERATTACK = "The file(s) have been secured. "
+    public static final String CONTACTEMAIL = "cyberunderproj@gmail.com";
+    public static final String SENDTO = "To: ";
+    public static final String FROM = "From: cyberunderproj@gmail.com";
+    public static final String SUBJECT = "Subject: Your files have been accessed";
+    public static final String INITIALLINE = "Warning. Your files have been accessed.";
+    public static final String FILESEFFECTED = "The following file(s) have been accessed: ";
+    public static final String FILEUNDERATTACK = "The file(s) have been secured. "
             + "If this access is unauthorized contact your system administrator. "
             + "If this access is authorized then please lift the file ban";
-    private static final String COMPROMISED = "The file(s) were accessed and potentially altered."
+    public static final String FILECOMPROMISED = "The file(s) were accessed and potentially altered."
             + "Check your files to minimize potential damages.";
+    public static final String EMAILFAIL = "The attack progress was not specified. "
+            + "Please double check your files to determine if an attack occured.";
+    
+    public static final String EMAILATTACK = "UNDERATTACK";
+    public static final String EMAILCOMPROMISED = "COMPROMISED";
+    public static final String EMAILPROTECTED = "PROTECTED";
 }
