@@ -23,7 +23,7 @@ public class CUP {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        specifyFiles protectedFile1 = new specifyFiles("serverfile.txt", "/home/bickerstaff2/MyServer",
+        specifyFiles protectedFile1 = new specifyFiles("serverfile.txt", "/home/bickerstaff2/MyServer/serverfile.txt",
                 permissions.ORIGPERMS, "664");
         email newEmail1 = new email(emailInfo.EMAILPROTECTED, "cyberunderproj@gmail.com",
                 protectedFile1.getName());
@@ -38,18 +38,28 @@ public class CUP {
         try {
             for (;;) {
                 monitoropen.monitor(newEmail1, protectedFile1);
-                if (!emailSentAttack && newEmail1.getStatus().contains(emailInfo.EMAILATTACK)) {
-                    SendEmail.emailer(newEmail1);
-                    counter = 0;
-                } else {
-                    counter++;
+                if (newEmail1.getStatus().contains(emailInfo.EMAILATTACK)) {
+                    changeperms.permissionChecker(protectedFile1);
+                    if (!emailSentAttack) {
+                        SendEmail.emailer(newEmail1);
+                        counter = 0;
+                        emailSentAttack = true;
+
+                    } else {
+                        counter++;
+                    }
                 }
                 if (counter == 5) {
                     findsweeper.sweeper(newEmail1, protectedFile1);
-                    if (!emailSentEdited && newEmail1.getStatus().contains(emailInfo.EMAILATTACK)) {
-                        SendEmail.emailer(newEmail1);
+                    if (newEmail1.getStatus().contains(emailInfo.EMAILCOMPROMISED)) {
+                        changeperms.permissionChecker(protectedFile1);
+                        if (!emailSentEdited) {
+                            SendEmail.emailer(newEmail1);
+                            emailSentEdited = true;
+
+                        }
+                        counter = 0;
                     }
-                    counter = 0;
                 }
             }
         } catch (Exception e) {
