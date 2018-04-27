@@ -38,6 +38,7 @@ public class CUP {
         try {
             for (;;) {
                 monitoropen.monitor(newEmail1, protectedFile1);
+
                 if (newEmail1.getStatus().contains(emailInfo.EMAILATTACK)) {
                     changeperms.permissionChecker(protectedFile1);
                     if (!emailSentAttack) {
@@ -59,6 +60,7 @@ public class CUP {
 
                         }
                         counter = 0;
+
                     }
                 }
             }
